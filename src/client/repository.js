@@ -1,7 +1,7 @@
 const BASE_URL = "http://localhost:3000";
 
 export function sendItems(cart) {
-  const data = { item: cart };
+  const data = { items: cart };
 
   fetch(`${BASE_URL}/api/purchase`, {
     method: "POST",

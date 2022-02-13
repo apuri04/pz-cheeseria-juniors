@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useQuery } from "react-query";
 // Components
 import Item from "./Cart/Item/Item";
@@ -15,6 +15,16 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import Button from "@material-ui/core/Button";
+import PurchaseHistory from "./Purchase/Purchase-History";
+import { Link } from "react-router-dom";
+
+import {
+  BrowserRouter as Router,
+  useNavigate,
+  Route,
+  Routes
+} from "react-router-dom";
+
 // Styles
 import {
   Wrapper,
@@ -53,13 +63,13 @@ const App = () => {
   const handleClickToOpen = (item: CartItemType) => {
     setOpen(true);
     setClickedItem({ ...item });
-    console.log(clickedItem);
   };
 
   const handleToClose = () => {
     setOpen(false);
   };
   const [cartItems, setCartItems] = useState([] as CartItemType[]);
+
   const { data, isLoading, error } = useQuery<CartItemType[]>(
     "cheeses",
     getCheeses
@@ -98,6 +108,9 @@ const App = () => {
     );
   };
 
+  const navigate = useNavigate();
+  const handleOnRecentPurchaseClick = () => navigate("/purchase-history");
+
   if (isLoading) return <LinearProgress />;
   if (error) return <div>Something went wrong ...</div>;
 
@@ -111,9 +124,11 @@ const App = () => {
             justify="space-between"
             alignItems="center"
           >
-            <StyledButton>
+            <StyledButton onClick={handleOnRecentPurchaseClick}>
               <RestoreIcon />
-              <Typography variant="subtitle2">Recent Purchases</Typography>
+              <Link to="/purchase-history">
+                <Typography variant="subtitle2">Recent Purchases</Typography>{" "}
+              </Link>
             </StyledButton>
 
             <HeaderTypography variant="h3" noWrap>
@@ -165,6 +180,11 @@ const App = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      <Routes>
+        <Route path="/" element={<PurchaseHistory />}></Route>
+        <Route path="/home" element={<div>Home</div>}></Route>
+        <Route path="/purchase-history" element={<div>test</div>}></Route>
+      </Routes>
     </Wrapper>
   );
 };

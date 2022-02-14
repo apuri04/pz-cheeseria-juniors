@@ -181,12 +181,6 @@ const App = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      <Routes>
-        <Route
-          path="/purchase-history"
-          element={<PurchaseHistory></PurchaseHistory>}
-        ></Route>
-      </Routes>
     </Wrapper>
   );
 };

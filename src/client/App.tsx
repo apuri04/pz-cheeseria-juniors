@@ -15,7 +15,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import Button from "@material-ui/core/Button";
-import PurchaseHistory from "./Purchase/Purchase-History";
 import { Link } from "react-router-dom";
 
 import {
@@ -33,6 +32,7 @@ import {
   HeaderTypography
 } from "./App.styles";
 import { AppBar, Toolbar, Typography, Modal } from "@material-ui/core";
+import PurchaseHistory from "./Purchase/PurchaseHistory";
 // Types
 export type CartItemType = {
   id: number;
@@ -124,17 +124,18 @@ const App = () => {
             justify="space-between"
             alignItems="center"
           >
-            <StyledButton onClick={handleOnRecentPurchaseClick}>
-              <RestoreIcon />
-              <Link to="/purchase-history">
-                <Typography variant="subtitle2">Recent Purchases</Typography>{" "}
-              </Link>
-            </StyledButton>
-
+            {" "}
+            <Link to="/purchase-history">
+              <StyledButton onClick={handleOnRecentPurchaseClick}>
+                <RestoreIcon />
+                <Typography variant="subtitle2">
+                  Recent Purchases
+                </Typography>{" "}
+              </StyledButton>
+            </Link>
             <HeaderTypography variant="h3" noWrap>
               Welcome to Patient Zero's Cheeseria
             </HeaderTypography>
-
             <StyledButton onClick={() => setCartOpen(true)}>
               <Badge
                 badgeContent={getTotalItems(cartItems)}
@@ -181,9 +182,10 @@ const App = () => {
         </DialogActions>
       </Dialog>
       <Routes>
-        <Route path="/" element={<PurchaseHistory />}></Route>
-        <Route path="/home" element={<div>Home</div>}></Route>
-        <Route path="/purchase-history" element={<div>test</div>}></Route>
+        <Route
+          path="/purchase-history"
+          element={<PurchaseHistory></PurchaseHistory>}
+        ></Route>
       </Routes>
     </Wrapper>
   );

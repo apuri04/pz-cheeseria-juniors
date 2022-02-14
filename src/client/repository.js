@@ -13,6 +13,7 @@ export function sendItems(cart) {
     .then(response => response.json())
     .then(data => {
       console.log("Success:", data);
+      alert("thank you for purchasing");
     })
     .catch(error => {
       console.error("Error:", error);
